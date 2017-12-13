@@ -78,6 +78,8 @@ def root():
             msg = CommitComment(data).created()
     elif event == "gollum":
         msg = Wiki(data).updated()
+    elif event == "pull_request_review":
+        msg = PullRequest(data).reviewed()
 
     if msg:
         hook_info = get_hook_info(data)

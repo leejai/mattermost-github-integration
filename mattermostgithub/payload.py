@@ -82,6 +82,13 @@ class PullRequest(Payload):
             self.number, self.title, self.url)
         return msg
 
+    def reviewed(self):
+        state = self.data['review']['state']
+        number = self.data['pull_request']['number']
+        title = self.data['pull_request']['title']
+        url = self.data['pull_request']['html_url']
+        return "%s %s pull request[#%s %s](%s) at %s:" % (self.user_link(), state, number, title, url, self.repo_link())
+
 class PullRequestComment(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
