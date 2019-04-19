@@ -92,8 +92,9 @@ class PullRequestReview(Payload):
 
     def submitted(self):
         body = self.preview(self.body)
-        msg = """%s submitted a review on pull request [#%s %s](%s):
-> %s""" % (self.user_link(), self.number, self.title, self.url, body)
+        state = self.data['review']['state']
+        msg = """%s %s a review on pull request [#%s %s](%s):
+> %s""" % (self.user_link(), state, self.number, self.title, self.url, body)
         return msg
 
 class PullRequestComment(Payload):
@@ -253,7 +254,9 @@ class Status(Payload):
         Payload.__init__(self, data)
 
     def updated(self):
-        url = self.data["target_url"]
+        context = self.data["context"]
         description = self.data["description"]
-        msg = "[%s](%s) in %s." % (description, url, self.repo_link())
+        state = self.data["state"]
+        url = self.data["target_url"]
+        msg = "%s : [%s](%s) in %s." % (context, state, url, self.repo_link())
         return msg
