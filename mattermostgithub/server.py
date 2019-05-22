@@ -72,7 +72,7 @@ def root():
         if data['ref_type'] == "branch":
             msg = Branch(data).deleted()
     elif event == "pull_request_review":
-        if data['action'] == "submitted":
+        if data['action'] == "submitted" and data['review']['state'] != "commented":
             msg = PullRequestReview(data).submitted()
     elif event == "pull_request_review_comment":
         if data['action'] == "created":
