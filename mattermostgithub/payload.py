@@ -82,6 +82,11 @@ class PullRequest(Payload):
             self.number, self.title, self.url)
         return msg
 
+    def ready(self):
+        msg = """%s marked pull request [#%s %s](%s) as ready for review.""" % (self.user_link(),
+            self.number, self.title, self.url)
+        return msg
+
 class PullRequestReview(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
